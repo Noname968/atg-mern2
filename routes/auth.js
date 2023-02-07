@@ -52,9 +52,8 @@ router.post("/", async (req, res) => {
             // secure: true,
             // remove secure and samesite to lax
         }).send();
-        success = true;
     } catch (err) {
-        res.status(500).send();
+        res.status(500).send(err);
     }
 })
 
@@ -91,11 +90,9 @@ router.post("/login", async (req, res) => {
             sameSite: "lax",
             // secure: true,
             // remove secure and samesite to lax
-        }).send();
-        console.log(token);
-
-        return res.status(200).json({ message: "Successfully logged in" });
-
+        }).send({ message: "Successfully logged in" });
+        // console.log(token);
+        // return res.status(200).json({ message: "Successfully logged in" });
     } catch (err) {
         res.status(500).send();
     }
@@ -190,6 +187,7 @@ router.post("/forgot/password", async (req, res) => {
 
 })
 
+// reset password
 router.put("/reset/password" , async(req , res)=>{
     const {token , _id} = req.query;
     if(!token || !_id){
